@@ -1,17 +1,14 @@
-# Algorithm Analysis
+# Performance Analysis
 
-The challenge requires finding valid flight connections based on business rules (same day departure, max 24h total duration, max 4h layover).
-
-## The Brute Force Approach (O(N²))
-A naive approach would iterate over all flights to find those departing from the origin on the correct date. Then, for each valid first flight, it would iterate over *all* other flights again to find matching second flights. This yields a worst-case time complexity of **O(N²)**, which scales poorly as the number of available flights grows.
+The challenge requires finding valid flight connections based on strict business rules: same day departure, max 24h total duration, and max 4h layover.
 
 ## The Indexed Approach (O(N))
-To optimize the search, the `IndexedJourneySearch` algorithm uses **pre-indexing**.
+To optimize the search and guarantee fast response times even with large flight networks, the `IndexedJourneySearch` algorithm uses **pre-indexing**.
 
 ### 1. Indexing Phase
 We iterate over the `N` flights exactly once to populate two Hash Maps (`defaultdict[str, list[FlightEvent]]`):
-- `by_departure`: Groups flights by their departure city code.
-- `by_departure_city`: Further grouping (if needed) or simple lookup tables.
+- `by_departure`: Groups flights by their departure city code and date.
+- `by_departure_city`: Groups flights solely by their departure city code.
 
 *Time Complexity: O(N)*
 

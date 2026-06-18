@@ -6,22 +6,22 @@ This project follows the **Ports & Adapters** (Hexagonal) architecture. The main
 
 ```mermaid
 flowchart TD
-    subaxis API Layer
+    subgraph API Layer
         Router["FastAPI Router\n(src/app/routes.py)"]
     end
     
-    subaxis Service Layer
+    subgraph Service Layer
         Service["JourneySearchService\n(src/services/journey_search.py)"]
     end
     
-    subaxis Domain & Ports
+    subgraph Domain & Ports
         StrategyPort["JourneySearchStrategy (Port)"]
         RepoPort["FlightEventRepository (Port)"]
         Domain["Domain Models\nFlightEvent, Journey"]
         IndexedStrategy["IndexedJourneySearch\n(src/domain/indexed_search.py)"]
     end
     
-    subaxis Adapters
+    subgraph Adapters
         HttpAdapter["HttpFlightEventRepository\n(src/adapters/flight_events_api.py)"]
     end
 
