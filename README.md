@@ -18,7 +18,7 @@ Asegúrate de tener [uv](https://docs.astral.sh/uv/) instalado.
 
 2. Ejecutar la aplicación en modo desarrollo:
    ```bash
-   uv run uvicorn src.main:app --reload
+   uv run uvicorn src.main:app --reload --port 8000
    ```
 
 3. Ejecutar los tests:
