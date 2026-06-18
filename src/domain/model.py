@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 
+
 @dataclass
 class FlightEvent:
     flight_number: str
@@ -8,6 +9,7 @@ class FlightEvent:
     arrival_city: str
     departure_datetime: datetime
     arrival_datetime: datetime
+
 
 @dataclass
 class Journey:
