@@ -10,6 +10,13 @@ We iterate over the `N` flights exactly once to populate two Hash Maps (`default
 - `by_departure`: Groups flights by their departure city code and date.
 - `by_departure_city`: Groups flights solely by their departure city code.
 
+```mermaid
+flowchart LR
+    A[Raw Flight Events\nArray of N items] -->|O(N) iteration| B{Build Indexes}
+    B --> C[("by_departure\n(City, Date) → Flights")]
+    B --> D[("by_departure_city\n(City) → Flights")]
+```
+
 *Time Complexity: O(N)*
 
 ### 2. Search Phase
@@ -19,6 +26,21 @@ We iterate over the `N` flights exactly once to populate two Hash Maps (`default
    - We check if it goes directly to the `destination`. If so, it's a valid 1-leg journey.
    - Otherwise, we look up its arrival city in the hash map (`O(1)`) to get all flights departing from that intermediate city. Let's assume there are `m` such flights.
    - We check the business rules (layover <= 4h, total duration <= 24h).
+
+```mermaid
+flowchart TD
+    Start([Search: Origin to Destination]) --> LookupFirst["O(1) Lookup:\nFlights from Origin on Date"]
+    LookupFirst --> FirstFlights{"Iterate First\nFlights (k)"}
+    
+    FirstFlights -->|Direct Flight| DirectMatch["Direct Match!\nAdd to Journeys"]
+    FirstFlights -->|Connecting Flight| LookupSecond["O(1) Lookup:\nFlights from Intermediate City"]
+    
+    LookupSecond --> SecondFlights{"Iterate Second\nFlights (m)"}
+    
+    SecondFlights --> CheckRules{"Check Rules:\nLayover <= 4h\nTotal <= 24h"}
+    CheckRules -->|Pass| ConnectionMatch["Connection Match!\nAdd to Journeys"]
+    CheckRules -->|Fail| Discard["Discard"]
+```
 
 *Time Complexity: O(k × m)*
 
