@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 
-from src.domain.indexed_search import IndexedJourneySearch
+from src.domain.two_leg_indexed_search import TwoLegIndexedJourneySearch
 from src.domain.model import FlightEvent
 
 
@@ -41,7 +41,7 @@ def make_event(
 
 SEARCH_DATE = datetime(2024, 9, 12).date()
 
-strategy = IndexedJourneySearch()
+strategy = TwoLegIndexedJourneySearch()
 
 
 # ---------------------------------------------------------------------------

@@ -13,7 +13,7 @@ _MAX_JOURNEY_DURATION = timedelta(hours=24)
 _DepartureDateKey = tuple[str, date]
 
 
-class IndexedJourneySearch:
+class TwoLegIndexedJourneySearch:
     """Optimized journey search strategy using pre-built hash map indexes.
 
     Replaces the O(n²) brute-force double loop with O(n) index construction

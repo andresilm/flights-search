@@ -3,7 +3,7 @@
 import pytest
 
 from src.app.config import Settings, get_search_strategy
-from src.domain.indexed_search import IndexedJourneySearch
+from src.domain.two_leg_indexed_search import TwoLegIndexedJourneySearch
 
 
 def test_default_settings() -> None:
@@ -17,7 +17,7 @@ def test_default_settings() -> None:
         LOG_LEVEL="INFO",
         PORT=8000,
     )
-    assert settings.JOURNEY_SEARCH_STRATEGY == "indexed"
+    assert settings.JOURNEY_SEARCH_STRATEGY == "two_leg_indexed"
     assert settings.LOG_LEVEL == "INFO"
     assert settings.PORT == 8000
 
@@ -42,13 +42,13 @@ def test_log_level_int_invalid() -> None:
 
 
 def test_get_search_strategy_indexed() -> None:
-    """Factory returns an IndexedJourneySearch instance for strategy 'indexed'."""
+    """Factory returns an TwoLegIndexedJourneySearch instance for strategy 'two_leg_indexed'."""
     settings = Settings(
         FLIGHT_EVENTS_API_URL="http://test.example.com",
-        JOURNEY_SEARCH_STRATEGY="indexed",
+        JOURNEY_SEARCH_STRATEGY="two_leg_indexed",
     )
     strategy = get_search_strategy(settings)
-    assert isinstance(strategy, IndexedJourneySearch)
+    assert isinstance(strategy, TwoLegIndexedJourneySearch)
 
 
 def test_get_search_strategy_unknown() -> None:

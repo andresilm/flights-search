@@ -8,7 +8,7 @@ A REST API that searches for flight journeys (direct and with one connection) ba
 src/
 ├── domain/
 │   ├── model.py              # Pure domain models: FlightEvent, Journey
-│   └── indexed_search.py     # IndexedJourneySearch (concrete strategy)
+│   └── two_leg_indexed_search.py     # TwoLegIndexedJourneySearch (concrete strategy)
 ├── ports.py                  # Protocols: FlightEventRepository, JourneySearchStrategy
 ├── adapters/
 │   └── flight_events_api.py  # HTTP adapter for the external flight events API
@@ -20,7 +20,7 @@ src/
     └── routes.py             # GET /journeys/search
 ```
 
-The search algorithm is a **replaceable strategy** (`JourneySearchStrategy` protocol). The current implementation, `IndexedJourneySearch`, pre-indexes all events into hash maps in O(n) and performs lookups in O(k × m) — effectively O(n) overall. A new algorithm can be plugged in by implementing the protocol and configuring `JOURNEY_SEARCH_STRATEGY` in `.env`.
+The search algorithm is a **replaceable strategy** (`JourneySearchStrategy` protocol). The current implementation, `TwoLegIndexedJourneySearch`, pre-indexes all events into hash maps in O(n) and performs lookups in O(k × m) — effectively O(n) overall. A new algorithm can be plugged in by implementing the protocol and configuring `JOURNEY_SEARCH_STRATEGY` in `.env`.
 
 ## Business Rules
 

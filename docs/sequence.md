@@ -9,7 +9,7 @@ sequenceDiagram
     participant Service as JourneySearchService
     participant Adapter as HttpFlightEventRepository
     participant External as External Flights API
-    participant Strategy as IndexedJourneySearch
+    participant Strategy as TwoLegIndexedJourneySearch
 
     Client->>Router: GET /journeys/search?date=...&from=...&to=...
     

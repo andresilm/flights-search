@@ -18,7 +18,7 @@ flowchart TD
         StrategyPort["JourneySearchStrategy (Port)"]
         RepoPort["FlightEventRepository (Port)"]
         Domain["Domain Models\nFlightEvent, Journey"]
-        IndexedStrategy["IndexedJourneySearch\n(src/domain/indexed_search.py)"]
+        IndexedStrategy["TwoLegIndexedJourneySearch\n(src/domain/two_leg_indexed_search.py)"]
     end
     
     subgraph Adapters
@@ -43,7 +43,7 @@ flowchart TD
 By defining `FlightEventRepository` as a port, the business logic does not know *how* flights are fetched. The `HttpFlightEventRepository` is just one implementation. If the external API changes to gRPC, or if a database is introduced, the core logic remains untouched.
 
 ### 2. Strategy Pattern
-The `JourneySearchStrategy` port enables swapping out the search algorithm. We currently use `IndexedJourneySearch` (an O(n) optimized algorithm), but a new algorithm (like BFS or Dijkstra for N-connections) could be introduced by implementing the protocol and updating the `.env` configuration, without touching existing services.
+The `JourneySearchStrategy` port enables swapping out the search algorithm. We currently use `TwoLegIndexedJourneySearch` (an O(n) optimized algorithm), but a new algorithm (like BFS or Dijkstra for N-connections) could be introduced by implementing the protocol and updating the `.env` configuration, without touching existing services.
 
 ### 3. FastAPI and Pydantic
 FastAPI provides native asynchronous support, which is critical since fetching flights from an external API is an I/O bound operation. Pydantic is used for rigorous request/response validation, ensuring the exact expected date formats (`YYYY-MM-DD HH:MM`) are outputted to the clients.

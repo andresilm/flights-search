@@ -8,7 +8,7 @@ import logging
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from src.domain.indexed_search import IndexedJourneySearch
+from src.domain.two_leg_indexed_search import TwoLegIndexedJourneySearch
 from src.ports import JourneySearchStrategy
 
 
@@ -32,7 +32,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
     FLIGHT_EVENTS_API_URL: str
-    JOURNEY_SEARCH_STRATEGY: str = "indexed"
+    JOURNEY_SEARCH_STRATEGY: str = "two_leg_indexed"
     LOG_LEVEL: str = "INFO"
     PORT: int = 8000
 
@@ -55,7 +55,7 @@ class Settings(BaseSettings):
 
 # Registry mapping strategy names to their concrete classes.
 _STRATEGY_REGISTRY: dict[str, type[JourneySearchStrategy]] = {
-    "indexed": IndexedJourneySearch,
+    "two_leg_indexed": TwoLegIndexedJourneySearch,
 }
 
 

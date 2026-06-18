@@ -3,7 +3,11 @@
 The challenge requires finding valid flight connections based on strict business rules: same day departure, max 24h total duration, and max 4h layover.
 
 ## The Indexed Approach (O(N))
-To optimize the search and guarantee fast response times even with large flight networks, the `IndexedJourneySearch` algorithm uses **pre-indexing**.
+To optimize the search and guarantee fast response times even with large flight networks, the `TwoLegIndexedJourneySearch` algorithm uses **pre-indexing**. 
+
+> [!NOTE]
+> **Tailored to the Challenge Constraints**
+> This default strategy is heavily optimized specifically because the business rules strictly limit a journey to a **maximum of 2 flight events**. By exploiting this small upper bound, we avoid complex graph traversal algorithms and instead use a fast, constant-depth nested loop (direct flights + one-stop flights) powered by O(1) hash map lookups.
 
 ### 1. Indexing Phase
 We iterate over the `N` flights exactly once to populate two Hash Maps (`defaultdict[str, list[FlightEvent]]`):
