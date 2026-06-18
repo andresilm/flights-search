@@ -30,8 +30,8 @@ flowchart TD
     Service -->|Depends on| RepoPort
     Service -->|Uses| Domain
     
-    IndexedStrategy -.-|> StrategyPort
-    HttpAdapter -.-|> RepoPort
+    IndexedStrategy -.->|Implements| StrategyPort
+    HttpAdapter -.->|Implements| RepoPort
     
     StrategyPort -.-> Domain
     RepoPort -.-> Domain
