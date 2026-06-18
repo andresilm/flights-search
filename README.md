@@ -10,6 +10,7 @@ src/
 │   ├── model.py              # Pure domain models: FlightEvent, Journey
 │   └── two_leg_indexed_search.py     # TwoLegIndexedJourneySearch (concrete strategy)
 ├── ports.py                  # Protocols: FlightEventRepository, JourneySearchStrategy
+├── logger.py                 # Centralized logging configuration
 ├── adapters/
 │   └── flight_events_api.py  # HTTP adapter for the external flight events API
 ├── services/
@@ -17,7 +18,8 @@ src/
 └── app/
     ├── config.py             # Settings (pydantic-settings)
     ├── main.py               # FastAPI app + lifespan
-    └── routes.py             # GET /journeys/search
+    ├── routes.py             # API endpoints
+    └── schemas.py            # Pydantic serialization models
 ```
 
 The search algorithm is a **replaceable strategy** (`JourneySearchStrategy` protocol). The current implementation, `TwoLegIndexedJourneySearch`, pre-indexes all events into hash maps in O(n) and performs lookups in O(k × m) — effectively O(n) overall. A new algorithm can be plugged in by implementing the protocol and configuring `JOURNEY_SEARCH_STRATEGY` in `.env`.
