@@ -92,5 +92,33 @@ Copy `.env` and adjust as needed:
 
 | Variable | Default | Description |
 |---|---|---|
-| `FLIGHT_EVENTS_API_URL` | — | Base URL of the external flight events API |
+| `LOG_LEVEL` | `DEBUG` | Logging level (`DEBUG`, `INFO`, `WARNING`, `ERROR`) |
+| `PORT` | `8000` | Port Uvicorn listens on |
+| `FLIGHT_EVENTS_API_URL` | — | Base URL of the external flight events API (see below) |
 | `JOURNEY_SEARCH_STRATEGY` | `indexed` | Search algorithm to use (`indexed`) |
+
+### External Flight Events API
+
+The service fetches all available flight events from an external API by calling:
+
+```
+GET <FLIGHT_EVENTS_API_URL>/flight-events
+```
+
+The contract for this API is defined in the [OpenAPI spec](https://gitlab.com/kiusys/challenge/-/blob/main/events-api/openapi.yaml) provided with the challenge. No live URL is bundled with the service — **set `FLIGHT_EVENTS_API_URL` to whatever server you are using**.
+
+**Option A — evaluator-provided server:** set the variable to the URL you receive.
+
+**Option B — local mock with Prism** (useful for development and testing):
+
+```bash
+# Install Prism CLI once
+npm install -g @stoplight/prism-cli
+
+# Start a mock server from the OpenAPI spec
+prism mock https://gitlab.com/kiusys/challenge/-/raw/main/events-api/openapi.yaml
+# → mock listening on http://127.0.0.1:4010
+
+# Then set in .env:
+# FLIGHT_EVENTS_API_URL=http://127.0.0.1:4010
+```
