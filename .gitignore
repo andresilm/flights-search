@@ -154,3 +154,4 @@ Icon
 .vscode/
 *.swp
 *.swo
+run_demo.py
