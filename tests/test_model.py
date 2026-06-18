@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from src.domain.model import FlightEvent, Journey
 
 
-def test_flight_event_creation():
+def test_flight_event_creation() -> None:
     event = FlightEvent(
         flight_number="UX123",
         departure_city="BUE",
@@ -17,7 +17,7 @@ def test_flight_event_creation():
     assert event.arrival_datetime == datetime(2024, 9, 12, 22, 0)
 
 
-def test_journey_single_flight():
+def test_journey_single_flight() -> None:
     event = FlightEvent(
         flight_number="UX123",
         departure_city="BUE",
@@ -32,7 +32,7 @@ def test_journey_single_flight():
     assert journey.total_duration == timedelta(hours=12)
 
 
-def test_journey_two_flights():
+def test_journey_two_flights() -> None:
     event1 = FlightEvent(
         flight_number="UX123",
         departure_city="BUE",
