@@ -26,13 +26,17 @@ def test_log_level_int_valid() -> None:
     """log_level_int converts a valid LOG_LEVEL string to its integer constant."""
     import logging
 
-    settings = Settings(FLIGHT_EVENTS_API_URL="http://test.example.com", LOG_LEVEL="DEBUG")
+    settings = Settings(
+        FLIGHT_EVENTS_API_URL="http://test.example.com", LOG_LEVEL="DEBUG"
+    )
     assert settings.log_level_int == logging.DEBUG
 
 
 def test_log_level_int_invalid() -> None:
     """log_level_int raises ValueError for an unrecognized level string."""
-    settings = Settings(FLIGHT_EVENTS_API_URL="http://test.example.com", LOG_LEVEL="NOPE")
+    settings = Settings(
+        FLIGHT_EVENTS_API_URL="http://test.example.com", LOG_LEVEL="NOPE"
+    )
     with pytest.raises(ValueError, match="Invalid LOG_LEVEL"):
         _ = settings.log_level_int
 
