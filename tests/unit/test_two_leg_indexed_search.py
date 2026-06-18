@@ -1,13 +1,9 @@
 from datetime import datetime, timedelta
 
+import pytest
 
-from src.domain.two_leg_indexed_search import TwoLegIndexedJourneySearch
 from src.domain.model import FlightEvent
-
-
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
+from src.domain.two_leg_indexed_search import TwoLegIndexedJourneySearch
 
 
 def make_event(
@@ -30,10 +26,10 @@ SEARCH_DATE = datetime(2024, 9, 12).date()
 
 strategy = TwoLegIndexedJourneySearch()
 
-
-# ---------------------------------------------------------------------------
-# Direct flight
-# ---------------------------------------------------------------------------
+# Shared first leg reused across parametrized cases.
+_FIRST_LEG = make_event(
+    "UX100", "BUE", "MAD", datetime(2024, 9, 12, 10, 0), datetime(2024, 9, 12, 22, 0)
+)
 
 
 def test_direct_flight_found() -> None:
@@ -52,41 +48,6 @@ def test_direct_flight_found() -> None:
     assert result[0].connections == 1
     assert result[0].origin == "BUE"
     assert result[0].destination == "MAD"
-
-
-def test_no_flights_for_date() -> None:
-    """No events on the search date returns an empty list."""
-    events = [
-        make_event(
-            "UX100",
-            "BUE",
-            "MAD",
-            datetime(2024, 9, 13, 10, 0),
-            datetime(2024, 9, 13, 22, 0),
-        )
-    ]
-    result = strategy.search(events, "BUE", "MAD", SEARCH_DATE)
-    assert result == []
-
-
-def test_no_matching_route() -> None:
-    """Events exist on the date but none connect origin to destination."""
-    events = [
-        make_event(
-            "UX100",
-            "BUE",
-            "SCL",
-            datetime(2024, 9, 12, 10, 0),
-            datetime(2024, 9, 12, 14, 0),
-        )
-    ]
-    result = strategy.search(events, "BUE", "MAD", SEARCH_DATE)
-    assert result == []
-
-
-# ---------------------------------------------------------------------------
-# Connecting flight
-# ---------------------------------------------------------------------------
 
 
 def test_connecting_flight_found() -> None:
@@ -114,78 +75,103 @@ def test_connecting_flight_found() -> None:
     assert result[0].destination == "PMI"
 
 
-def test_connection_exceeds_4h() -> None:
-    """A connection with layover > 4 hours is excluded."""
-    events = [
-        make_event(
-            "UX100",
+@pytest.mark.parametrize(
+    "events, origin, destination, description",
+    [
+        (
+            [
+                make_event(
+                    "UX100",
+                    "BUE",
+                    "MAD",
+                    datetime(2024, 9, 13, 10, 0),
+                    datetime(2024, 9, 13, 22, 0),
+                )
+            ],
             "BUE",
             "MAD",
-            datetime(2024, 9, 12, 10, 0),
-            datetime(2024, 9, 12, 22, 0),
+            "no events on search date",
         ),
-        # Layover = 5 hours (22:00 → 03:00 next day)
-        make_event(
-            "UX200",
-            "MAD",
-            "PMI",
-            datetime(2024, 9, 13, 3, 0),
-            datetime(2024, 9, 13, 4, 0),
-        ),
-    ]
-    result = strategy.search(events, "BUE", "PMI", SEARCH_DATE)
-    assert result == []
-
-
-def test_journey_exceeds_24h() -> None:
-    """A journey whose total duration exceeds 24 hours is excluded."""
-    events = [
-        make_event(
-            "UX100",
+        (
+            [
+                make_event(
+                    "UX100",
+                    "BUE",
+                    "SCL",
+                    datetime(2024, 9, 12, 10, 0),
+                    datetime(2024, 9, 12, 14, 0),
+                )
+            ],
             "BUE",
             "MAD",
-            datetime(2024, 9, 12, 10, 0),
-            datetime(2024, 9, 12, 22, 0),
+            "no route to destination",
         ),
-        # Arrival at 10:01 next day → total = 24h01m
-        make_event(
-            "UX200",
-            "MAD",
-            "PMI",
-            datetime(2024, 9, 13, 0, 0),
-            datetime(2024, 9, 13, 10, 1),
-        ),
-    ]
-    result = strategy.search(events, "BUE", "PMI", SEARCH_DATE)
-    assert result == []
-
-
-def test_second_flight_departs_before_first_arrives() -> None:
-    """A second flight departing before the first lands is excluded."""
-    events = [
-        make_event(
-            "UX100",
+        (
+            [
+                _FIRST_LEG,
+                # Layover = 5 hours (22:00 → 03:00 next day)
+                make_event(
+                    "UX200",
+                    "MAD",
+                    "PMI",
+                    datetime(2024, 9, 13, 3, 0),
+                    datetime(2024, 9, 13, 4, 0),
+                ),
+            ],
             "BUE",
-            "MAD",
-            datetime(2024, 9, 12, 10, 0),
-            datetime(2024, 9, 12, 22, 0),
-        ),
-        # Departs at 21:00, before UX100 arrives at 22:00.
-        make_event(
-            "UX200",
-            "MAD",
             "PMI",
-            datetime(2024, 9, 12, 21, 0),
-            datetime(2024, 9, 12, 23, 0),
+            "connection layover exceeds 4h",
         ),
-    ]
-    result = strategy.search(events, "BUE", "PMI", SEARCH_DATE)
-    assert result == []
-
-
-# ---------------------------------------------------------------------------
-# Mixed scenario
-# ---------------------------------------------------------------------------
+        (
+            [
+                _FIRST_LEG,
+                # Arrival at 10:01 next day → total = 24h01m
+                make_event(
+                    "UX200",
+                    "MAD",
+                    "PMI",
+                    datetime(2024, 9, 13, 0, 0),
+                    datetime(2024, 9, 13, 10, 1),
+                ),
+            ],
+            "BUE",
+            "PMI",
+            "total journey duration exceeds 24h",
+        ),
+        (
+            [
+                _FIRST_LEG,
+                # Departs at 21:00, before UX100 arrives at 22:00
+                make_event(
+                    "UX200",
+                    "MAD",
+                    "PMI",
+                    datetime(2024, 9, 12, 21, 0),
+                    datetime(2024, 9, 12, 23, 0),
+                ),
+            ],
+            "BUE",
+            "PMI",
+            "second flight departs before first arrives",
+        ),
+    ],
+    ids=[
+        "no_events_on_date",
+        "no_matching_route",
+        "connection_exceeds_4h",
+        "journey_exceeds_24h",
+        "second_departs_before_first_arrives",
+    ],
+)
+def test_invalid_journey_returns_empty(
+    events: list[FlightEvent],
+    origin: str,
+    destination: str,
+    description: str,
+) -> None:
+    """Business rule violations result in an empty journey list."""
+    result = strategy.search(events, origin, destination, SEARCH_DATE)
+    assert result == [], f"Expected no journeys for: {description}"
 
 
 def test_mixed_results() -> None:
@@ -233,11 +219,6 @@ def test_mixed_results() -> None:
     pmi_result = strategy.search(events, "BUE", "PMI", SEARCH_DATE)
     assert len(pmi_result) == 1
     assert pmi_result[0].connections == 2
-
-
-# ---------------------------------------------------------------------------
-# Performance
-# ---------------------------------------------------------------------------
 
 
 def test_performance_large_dataset() -> None:

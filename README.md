@@ -90,7 +90,7 @@ uv run ruff format .
 
 ## Environment Variables
 
-Copy `.env` and adjust as needed:
+Copy `.env.example` to `.env` and adjust as needed:
 
 | Variable | Default | Description |
 |---|---|---|

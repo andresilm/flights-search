@@ -106,10 +106,7 @@ def test_integration_invalid_layover_rejected(integration_client: TestClient) ->
 
 def test_integration_invalid_total_duration(integration_client: TestClient) -> None:
     """Tests that a journey exceeding 24 hours total duration is rejected."""
-    # BUE -> GRU -> LHR -> DXB: 1007 -> 1009 -> 1010 is > 24h.
-    # But wait, max connections is 2. So BUE -> DXB directly wouldn't be found anyway.
-    # Wait, BUE->GRU (1), GRU->LHR (2), LHR->DXB (3). 3 flights is > 2 limit!
-    # Let's test BUE -> LHR directly. 1007 -> 1009.
+    # BUE -> LHR via GRU: XX1007 -> XX1009 is a valid 2-leg journey under 24h.
     response = integration_client.get(
         "/journeys/search?date=2024-09-12&from=BUE&to=LHR"
     )

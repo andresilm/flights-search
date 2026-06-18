@@ -1,4 +1,4 @@
-# Performance Analysis
+# Flight Search Algorithm
 
 The challenge requires finding valid flight connections based on strict business rules: same day departure, max 24h total duration, and max 4h layover.
 

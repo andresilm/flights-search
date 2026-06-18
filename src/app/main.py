@@ -37,7 +37,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 def create_app(settings: Settings | None = None) -> FastAPI:
     """Creates and configures the FastAPI application."""
     if settings is None:
-        settings = Settings(**{})
+        settings = Settings()  # type: ignore[call-arg]
 
     app = FastAPI(
         title="Flights Search API",

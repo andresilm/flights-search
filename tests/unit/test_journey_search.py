@@ -1,6 +1,6 @@
 """Tests for the JourneySearchService."""
 
-from datetime import date
+from datetime import date, datetime, timezone
 from typing import Any
 
 import pytest
@@ -46,12 +46,6 @@ class FakeJourneySearchStrategy:
 async def test_search_delegates_to_strategy() -> None:
     """The service fetches events and delegates the search to the strategy."""
     search_date = date(2024, 9, 12)
-    fake_events: list[
-        FlightEvent
-    ] = []  # Can be empty for the stub, bypasses the check? Wait, if it's empty, it short-circuits.
-    # We must provide at least one event so the service doesn't short-circuit.
-    from datetime import datetime, timezone
-
     dummy_event = FlightEvent(
         flight_number="UX1",
         departure_city="BUE",
@@ -60,7 +54,6 @@ async def test_search_delegates_to_strategy() -> None:
         arrival_datetime=datetime(2024, 9, 12, 22, 0, tzinfo=timezone.utc),
     )
     fake_events = [dummy_event]
-
     fake_journeys = [Journey(flights=[dummy_event])]
 
     repo = FakeFlightEventRepository(fake_events)
@@ -69,10 +62,7 @@ async def test_search_delegates_to_strategy() -> None:
 
     result = await service.search(search_date, "BUE", "MAD")
 
-    # Assert it returns what the strategy returned
     assert result == fake_journeys
-
-    # Assert parameters were correctly passed to the strategy
     assert strategy.last_call_args is not None
     assert strategy.last_call_args["events"] == fake_events
     assert strategy.last_call_args["origin"] == "BUE"
