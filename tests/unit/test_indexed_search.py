@@ -28,6 +28,7 @@ def make_event(
 
     Returns:
         A FlightEvent instance.
+
     """
     return FlightEvent(
         flight_number=flight_number,

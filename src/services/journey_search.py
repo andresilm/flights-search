@@ -21,11 +21,12 @@ class JourneySearchService:
         repository: FlightEventRepository,
         strategy: JourneySearchStrategy,
     ):
-        """Initializes the service with required dependencies.
+        """Initialize the service with required dependencies.
 
         Args:
             repository: Port implementation to fetch flight events.
             strategy: Port implementation representing the search algorithm.
+
         """
         self._repository = repository
         self._strategy = strategy
@@ -45,6 +46,7 @@ class JourneySearchService:
 
         Returns:
             A list of valid journeys connecting the origin and destination.
+
         """
         logger.info(
             "Searching journeys from %s to %s on %s", origin, destination, search_date

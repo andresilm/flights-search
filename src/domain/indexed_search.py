@@ -51,6 +51,7 @@ class IndexedJourneySearch:
 
         Returns:
             A list of valid Journey objects (direct and with one connection).
+
         """
         by_departure, by_departure_city = self._build_indexes(events)
 
@@ -88,6 +89,7 @@ class IndexedJourneySearch:
             A tuple of:
                 - ``by_departure``: maps ``(departure_city, departure_date)`` to a list of events.
                 - ``by_departure_city``: maps ``departure_city`` to all events from that city.
+
         """
         by_departure: dict[_DepartureDateKey, list[FlightEvent]] = defaultdict(list)
         by_departure_city: dict[str, list[FlightEvent]] = defaultdict(list)
@@ -117,6 +119,7 @@ class IndexedJourneySearch:
 
         Returns:
             True if all business rules are satisfied, False otherwise.
+
         """
         if second.arrival_city != destination:
             return False

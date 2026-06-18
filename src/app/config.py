@@ -26,6 +26,7 @@ class Settings(BaseSettings):
         LOG_LEVEL: Minimum log level for the service logger.
             Accepts standard Python logging level names (e.g. ``"DEBUG"``, ``"INFO"``).
         PORT: TCP port that Uvicorn will listen on.
+
     """
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
@@ -44,6 +45,7 @@ class Settings(BaseSettings):
 
         Raises:
             ValueError: If the ``LOG_LEVEL`` string is not a valid logging level.
+
         """
         level = logging.getLevelName(self.LOG_LEVEL.upper())
         if not isinstance(level, int):
@@ -73,6 +75,7 @@ def get_search_strategy(settings: Settings) -> JourneySearchStrategy:
     Raises:
         ValueError: If ``settings.JOURNEY_SEARCH_STRATEGY`` does not match
             any registered strategy name.
+
     """
     strategy_cls = _STRATEGY_REGISTRY.get(settings.JOURNEY_SEARCH_STRATEGY)
     if strategy_cls is None:

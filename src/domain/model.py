@@ -12,6 +12,7 @@ class FlightEvent:
         arrival_city: The IATA city code where the flight arrives.
         departure_datetime: The scheduled departure date and time (UTC).
         arrival_datetime: The scheduled arrival date and time (UTC).
+
     """
 
     flight_number: str
@@ -27,6 +28,7 @@ class Journey:
 
     Attributes:
         flights: Ordered list of flight events composing the journey.
+
     """
 
     flights: list[FlightEvent]

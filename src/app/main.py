@@ -23,7 +23,6 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 
     logger.info("Starting up FastAPI application")
 
-    # Initialize dependencies
     strategy = get_search_strategy(settings)
 
     # We use a single shared httpx.AsyncClient for connection pooling

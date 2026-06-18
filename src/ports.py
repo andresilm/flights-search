@@ -12,10 +12,11 @@ class FlightEventRepository(Protocol):
     """
 
     async def get_all(self) -> list[FlightEvent]:
-        """Retrieves all available flight events.
+        """Retrieve all available flight events.
 
         Returns:
             list[FlightEvent]: A list containing all flight events from the repository.
+
         """
         ...
 
@@ -34,7 +35,7 @@ class JourneySearchStrategy(Protocol):
         destination: str,
         search_date: date,
     ) -> list[Journey]:
-        """Searches for valid journeys connecting the origin and destination.
+        """Search for valid journeys connecting the origin and destination.
 
         Args:
             events (list[FlightEvent]): The available flight events to use for the search.
@@ -44,5 +45,6 @@ class JourneySearchStrategy(Protocol):
 
         Returns:
             list[Journey]: A list of valid journeys that meet the criteria.
+
         """
         ...

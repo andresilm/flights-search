@@ -28,6 +28,7 @@ def configure_logging(level: int = logging.INFO) -> None:
 
     Args:
         level: The minimum log level to emit. Defaults to ``logging.INFO``.
+
     """
     root = logging.getLogger(_ROOT_LOGGER)
 
@@ -47,7 +48,7 @@ def configure_logging(level: int = logging.INFO) -> None:
 
 
 def get_logger(name: str) -> logging.Logger:
-    """Returns a child logger scoped under the service root logger.
+    """Return a child logger scoped under the service root logger.
 
     Conventionally called with ``__name__`` so log records carry the full
     module path (e.g. ``flights_search.adapters.flight_events_api``).
@@ -57,6 +58,7 @@ def get_logger(name: str) -> logging.Logger:
 
     Returns:
         A ``logging.Logger`` instance parented to the service root logger.
+
     """
     # Strip the "src." prefix so logger names read as "flights_search.<module>".
     relative = name.removeprefix("src.")
