@@ -12,7 +12,7 @@ We iterate over the `N` flights exactly once to populate two Hash Maps (`default
 
 ```mermaid
 flowchart LR
-    A[Raw Flight Events\nArray of N items] -->|O(N) iteration| B{Build Indexes}
+    A["Raw Flight Events\nArray of N items"] -- "O(N) iteration" --> B{"Build Indexes"}
     B --> C[("by_departure\n(City, Date) → Flights")]
     B --> D[("by_departure_city\n(City) → Flights")]
 ```
