@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from datetime import datetime, timedelta
 
 
-@dataclass
+@dataclass(frozen=True)
 class FlightEvent:
     """Represents a single flight leg between two cities.
 

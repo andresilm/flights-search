@@ -1,0 +1,233 @@
+[
+  {
+    "flight_number": "XX1000",
+    "departure_city": "BUE",
+    "arrival_city": "MAD",
+    "departure_datetime": "2024-09-12T10:00:00Z",
+    "arrival_datetime": "2024-09-12T22:00:00Z"
+  },
+  {
+    "flight_number": "XX1001",
+    "departure_city": "BUE",
+    "arrival_city": "MAD",
+    "departure_datetime": "2024-09-12T15:00:00Z",
+    "arrival_datetime": "2024-09-13T03:00:00Z"
+  },
+  {
+    "flight_number": "XX1002",
+    "departure_city": "MAD",
+    "arrival_city": "PMI",
+    "departure_datetime": "2024-09-12T23:00:00Z",
+    "arrival_datetime": "2024-09-13T00:00:00Z"
+  },
+  {
+    "flight_number": "XX1003",
+    "departure_city": "MAD",
+    "arrival_city": "PMI",
+    "departure_datetime": "2024-09-13T05:00:00Z",
+    "arrival_datetime": "2024-09-13T06:00:00Z"
+  },
+  {
+    "flight_number": "XX1004",
+    "departure_city": "MAD",
+    "arrival_city": "BCN",
+    "departure_datetime": "2024-09-13T01:00:00Z",
+    "arrival_datetime": "2024-09-13T02:00:00Z"
+  },
+  {
+    "flight_number": "XX1005",
+    "departure_city": "BUE",
+    "arrival_city": "MIA",
+    "departure_datetime": "2024-09-12T08:00:00Z",
+    "arrival_datetime": "2024-09-12T18:00:00Z"
+  },
+  {
+    "flight_number": "XX1006",
+    "departure_city": "MIA",
+    "arrival_city": "JFK",
+    "departure_datetime": "2024-09-12T20:00:00Z",
+    "arrival_datetime": "2024-09-12T23:00:00Z"
+  },
+  {
+    "flight_number": "XX1007",
+    "departure_city": "BUE",
+    "arrival_city": "GRU",
+    "departure_datetime": "2024-09-12T09:00:00Z",
+    "arrival_datetime": "2024-09-12T11:30:00Z"
+  },
+  {
+    "flight_number": "XX1008",
+    "departure_city": "GRU",
+    "arrival_city": "MAD",
+    "departure_datetime": "2024-09-12T14:00:00Z",
+    "arrival_datetime": "2024-09-13T04:00:00Z"
+  },
+  {
+    "flight_number": "XX1009",
+    "departure_city": "GRU",
+    "arrival_city": "LHR",
+    "departure_datetime": "2024-09-12T13:00:00Z",
+    "arrival_datetime": "2024-09-13T02:00:00Z"
+  },
+  {
+    "flight_number": "XX1010",
+    "departure_city": "LHR",
+    "arrival_city": "DXB",
+    "departure_datetime": "2024-09-13T05:00:00Z",
+    "arrival_datetime": "2024-09-13T15:00:00Z"
+  },
+  {
+    "flight_number": "XX1011",
+    "departure_city": "BUE",
+    "arrival_city": "JFK",
+    "departure_datetime": "2024-09-12T12:00:00Z",
+    "arrival_datetime": "2024-09-12T22:00:00Z"
+  },
+  {
+    "flight_number": "XX1012",
+    "departure_city": "JFK",
+    "arrival_city": "MAD",
+    "departure_datetime": "2024-09-12T23:00:00Z",
+    "arrival_datetime": "2024-09-13T12:00:00Z"
+  },
+  {
+    "flight_number": "XX1013",
+    "departure_city": "CITY0",
+    "arrival_city": "CITY1",
+    "departure_datetime": "2024-09-12T10:00:00Z",
+    "arrival_datetime": "2024-09-12T12:00:00Z"
+  },
+  {
+    "flight_number": "XX1014",
+    "departure_city": "CITY1",
+    "arrival_city": "CITY2",
+    "departure_datetime": "2024-09-12T10:01:00Z",
+    "arrival_datetime": "2024-09-12T12:01:00Z"
+  },
+  {
+    "flight_number": "XX1015",
+    "departure_city": "CITY2",
+    "arrival_city": "CITY3",
+    "departure_datetime": "2024-09-12T10:02:00Z",
+    "arrival_datetime": "2024-09-12T12:02:00Z"
+  },
+  {
+    "flight_number": "XX1016",
+    "departure_city": "CITY3",
+    "arrival_city": "CITY4",
+    "departure_datetime": "2024-09-12T10:03:00Z",
+    "arrival_datetime": "2024-09-12T12:03:00Z"
+  },
+  {
+    "flight_number": "XX1017",
+    "departure_city": "CITY4",
+    "arrival_city": "CITY5",
+    "departure_datetime": "2024-09-12T10:04:00Z",
+    "arrival_datetime": "2024-09-12T12:04:00Z"
+  },
+  {
+    "flight_number": "XX1018",
+    "departure_city": "CITY5",
+    "arrival_city": "CITY6",
+    "departure_datetime": "2024-09-12T10:05:00Z",
+    "arrival_datetime": "2024-09-12T12:05:00Z"
+  },
+  {
+    "flight_number": "XX1019",
+    "departure_city": "CITY6",
+    "arrival_city": "CITY7",
+    "departure_datetime": "2024-09-12T10:06:00Z",
+    "arrival_datetime": "2024-09-12T12:06:00Z"
+  },
+  {
+    "flight_number": "XX1020",
+    "departure_city": "CITY7",
+    "arrival_city": "CITY8",
+    "departure_datetime": "2024-09-12T10:07:00Z",
+    "arrival_datetime": "2024-09-12T12:07:00Z"
+  },
+  {
+    "flight_number": "XX1021",
+    "departure_city": "CITY8",
+    "arrival_city": "CITY9",
+    "departure_datetime": "2024-09-12T10:08:00Z",
+    "arrival_datetime": "2024-09-12T12:08:00Z"
+  },
+  {
+    "flight_number": "XX1022",
+    "departure_city": "CITY9",
+    "arrival_city": "CITY10",
+    "departure_datetime": "2024-09-12T10:09:00Z",
+    "arrival_datetime": "2024-09-12T12:09:00Z"
+  },
+  {
+    "flight_number": "XX1023",
+    "departure_city": "CITY10",
+    "arrival_city": "CITY11",
+    "departure_datetime": "2024-09-12T10:10:00Z",
+    "arrival_datetime": "2024-09-12T12:10:00Z"
+  },
+  {
+    "flight_number": "XX1024",
+    "departure_city": "CITY11",
+    "arrival_city": "CITY12",
+    "departure_datetime": "2024-09-12T10:11:00Z",
+    "arrival_datetime": "2024-09-12T12:11:00Z"
+  },
+  {
+    "flight_number": "XX1025",
+    "departure_city": "CITY12",
+    "arrival_city": "CITY13",
+    "departure_datetime": "2024-09-12T10:12:00Z",
+    "arrival_datetime": "2024-09-12T12:12:00Z"
+  },
+  {
+    "flight_number": "XX1026",
+    "departure_city": "CITY13",
+    "arrival_city": "CITY14",
+    "departure_datetime": "2024-09-12T10:13:00Z",
+    "arrival_datetime": "2024-09-12T12:13:00Z"
+  },
+  {
+    "flight_number": "XX1027",
+    "departure_city": "CITY14",
+    "arrival_city": "CITY15",
+    "departure_datetime": "2024-09-12T10:14:00Z",
+    "arrival_datetime": "2024-09-12T12:14:00Z"
+  },
+  {
+    "flight_number": "XX1028",
+    "departure_city": "CITY15",
+    "arrival_city": "CITY16",
+    "departure_datetime": "2024-09-12T10:15:00Z",
+    "arrival_datetime": "2024-09-12T12:15:00Z"
+  },
+  {
+    "flight_number": "XX1029",
+    "departure_city": "CITY16",
+    "arrival_city": "CITY17",
+    "departure_datetime": "2024-09-12T10:16:00Z",
+    "arrival_datetime": "2024-09-12T12:16:00Z"
+  },
+  {
+    "flight_number": "XX1030",
+    "departure_city": "CITY17",
+    "arrival_city": "CITY18",
+    "departure_datetime": "2024-09-12T10:17:00Z",
+    "arrival_datetime": "2024-09-12T12:17:00Z"
+  },
+  {
+    "flight_number": "XX1031",
+    "departure_city": "CITY18",
+    "arrival_city": "CITY19",
+    "departure_datetime": "2024-09-12T10:18:00Z",
+    "arrival_datetime": "2024-09-12T12:18:00Z"
+  },
+  {
+    "flight_number": "XX1032",
+    "departure_city": "CITY19",
+    "arrival_city": "CITY20",
+    "departure_datetime": "2024-09-12T10:19:00Z",
+    "arrival_datetime": "2024-09-12T12:19:00Z"
+  }
+]
