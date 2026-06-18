@@ -10,24 +10,13 @@ logger = get_logger(__name__)
 
 
 class JourneySearchService:
-    """Orchestration service for searching flight journeys.
-
-    Coordinates fetching data from the repository and applying the
-    search strategy.
-    """
+    """Coordinates fetching flight events and delegating to the search strategy."""
 
     def __init__(
         self,
         repository: FlightEventRepository,
         strategy: JourneySearchStrategy,
     ):
-        """Initialize the service with required dependencies.
-
-        Args:
-            repository: Port implementation to fetch flight events.
-            strategy: Port implementation representing the search algorithm.
-
-        """
         self._repository = repository
         self._strategy = strategy
 
@@ -37,17 +26,7 @@ class JourneySearchService:
         origin: str,
         destination: str,
     ) -> list[Journey]:
-        """Orchestrates the search for valid journeys.
-
-        Args:
-            search_date: The departure date for the first flight.
-            origin: The departure city code.
-            destination: The arrival city code.
-
-        Returns:
-            A list of valid journeys connecting the origin and destination.
-
-        """
+        """Search for journeys from origin to destination on the given date."""
         logger.info(
             "Searching journeys from %s to %s on %s", origin, destination, search_date
         )

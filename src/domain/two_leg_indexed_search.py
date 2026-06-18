@@ -14,18 +14,7 @@ _DepartureDateKey = tuple[str, date]
 
 
 class TwoLegIndexedJourneySearch:
-    """Optimized journey search strategy using pre-built hash map indexes.
-
-    Replaces the O(n²) brute-force double loop with O(n) index construction
-    and O(k × m) lookups, where k and m are small subsets of the full event list.
-
-    Indexes built on each call to ``search``:
-        - ``_by_departure``: maps ``(city, date)`` → flights departing from that city on that date.
-        - ``_by_departure_city``: maps ``city`` → all flights departing from that city (any date).
-
-    This class implements the ``JourneySearchStrategy`` protocol and can be
-    swapped for any other strategy implementation without changing the service layer.
-    """
+    """Searches for journeys using hash map indexes for O(n) performance."""
 
     def search(
         self,
@@ -34,25 +23,7 @@ class TwoLegIndexedJourneySearch:
         destination: str,
         search_date: date,
     ) -> list[Journey]:
-        """Searches for valid journeys connecting origin and destination on the given date.
-
-        Applies the following business rules:
-        - The first flight must depart on ``search_date`` (UTC date comparison).
-        - Connection time between two flights must not exceed 4 hours.
-        - Total journey duration must not exceed 24 hours.
-        - The second flight must depart strictly after the first flight arrives.
-        - The intermediate city must match between the two flights.
-
-        Args:
-            events: The full list of available flight events.
-            origin: The departure city code for the journey.
-            destination: The arrival city code for the journey.
-            search_date: The desired departure date for the first flight.
-
-        Returns:
-            A list of valid Journey objects (direct and with one connection).
-
-        """
+        """Find direct and one-stop journeys from origin to destination on the given date."""
         by_departure, by_departure_city = self._build_indexes(events)
 
         journeys: list[Journey] = []
@@ -80,17 +51,7 @@ class TwoLegIndexedJourneySearch:
         dict[_DepartureDateKey, list[FlightEvent]],
         dict[str, list[FlightEvent]],
     ]:
-        """Builds two hash map indexes from the event list in O(n).
-
-        Args:
-            events: The full list of available flight events to index.
-
-        Returns:
-            A tuple of:
-                - ``by_departure``: maps ``(departure_city, departure_date)`` to a list of events.
-                - ``by_departure_city``: maps ``departure_city`` to all events from that city.
-
-        """
+        """Build departure indexes from the event list in O(n)."""
         by_departure: dict[_DepartureDateKey, list[FlightEvent]] = defaultdict(list)
         by_departure_city: dict[str, list[FlightEvent]] = defaultdict(list)
 
@@ -110,17 +71,7 @@ class TwoLegIndexedJourneySearch:
         second: FlightEvent,
         destination: str,
     ) -> bool:
-        """Validates whether two flights form a valid connecting journey leg.
-
-        Args:
-            first: The first flight of the potential connection.
-            second: The candidate second flight.
-            destination: The required final arrival city for the journey.
-
-        Returns:
-            True if all business rules are satisfied, False otherwise.
-
-        """
+        """Check if two flights form a valid connection to the destination."""
         if second.arrival_city != destination:
             return False
 

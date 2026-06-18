@@ -17,19 +17,6 @@ def make_event(
     departure_dt: datetime,
     arrival_dt: datetime,
 ) -> FlightEvent:
-    """Creates a FlightEvent with the given parameters.
-
-    Args:
-        flight_number: The unique identifier for the flight.
-        departure_city: The city code where the flight departs.
-        arrival_city: The city code where the flight arrives.
-        departure_dt: The departure datetime.
-        arrival_dt: The arrival datetime.
-
-    Returns:
-        A FlightEvent instance.
-
-    """
     return FlightEvent(
         flight_number=flight_number,
         departure_city=departure_city,

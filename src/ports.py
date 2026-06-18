@@ -5,28 +5,13 @@ from src.domain.model import FlightEvent, Journey
 
 
 class FlightEventRepository(Protocol):
-    """Protocol defining the repository for flight events.
+    """Port for fetching flight events from a data source."""
 
-    This interface outlines the required methods for any data source
-    that provides flight events.
-    """
-
-    async def get_all(self) -> list[FlightEvent]:
-        """Retrieve all available flight events.
-
-        Returns:
-            list[FlightEvent]: A list containing all flight events from the repository.
-
-        """
-        ...
+    async def get_all(self) -> list[FlightEvent]: ...
 
 
 class JourneySearchStrategy(Protocol):
-    """Protocol defining the strategy for searching journeys.
-
-    This interface outlines the required methods for any algorithm
-    that constructs flight journeys from a list of flight events.
-    """
+    """Port for the journey search algorithm."""
 
     def search(
         self,
@@ -34,17 +19,4 @@ class JourneySearchStrategy(Protocol):
         origin: str,
         destination: str,
         search_date: date,
-    ) -> list[Journey]:
-        """Search for valid journeys connecting the origin and destination.
-
-        Args:
-            events (list[FlightEvent]): The available flight events to use for the search.
-            origin (str): The departure city code.
-            destination (str): The arrival city code.
-            search_date (date): The desired departure date for the first flight.
-
-        Returns:
-            list[Journey]: A list of valid journeys that meet the criteria.
-
-        """
-        ...
+    ) -> list[Journey]: ...
